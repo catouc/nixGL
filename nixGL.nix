@@ -247,7 +247,7 @@ let
       # Get if from the nvidiaVersionFile
         let
           data = builtins.readFile _nvidiaVersionFile;
-          versionMatch = builtins.match ".*Module  ([0-9.]+)  .*" data;
+          versionMatch = builtins.elemAt (builtins.split "[[:space:]]+([0-9]+[.][0-9.]+)[[:space:]]+" data) 1;
         in if versionMatch != null then builtins.head versionMatch else null;
 
       autoNvidia = nvidiaPackages {version = nvidiaVersionAuto; };
